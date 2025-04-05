@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SHL Assessment Recommender</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      max-width: 600px;
+      margin: auto;
+    }
+    h1 {
+      color: #333;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
+    button {
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>🔍 SHL Assessment Recommender</h1>
+  <form id="recommendForm">
+    <label for="query">Enter Job Role:</label><br />
+    <input type="text" id="query" name="query" required />
+    <button type="submit">Get Recommendations</button>
+  </form>
+
+  <div class="result" id="result"></div>
+
+  <script>
+    document.getElementById("recommendForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const query = document.getElementById("query").value;
+
+      const response = await fetch("/recommend", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ query })
+      });
+
+      const data = await response.json();
+      const resultDiv = document.getElementById("result");
+
+      if (data.recommendations) {
+        const list = data.recommendations.map(r => `<li>${r.Recommended_Assessments}</li>`).join("");
+        resultDiv.innerHTML = `<h3>Recommended Assessments for "${data.query}":</h3><ul>${list}</ul>`;
+      } else {
+        resultDiv.innerHTML = `<p style="color:red;">${data.error || "Something went wrong."}</p>`;
+      }
+    });
+  </script>
+</body>
+</html>
