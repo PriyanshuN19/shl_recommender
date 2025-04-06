@@ -44,10 +44,10 @@ SHL-Assessment-Recommender/
 pip install -r requirements.txt
 ```
 
-2. **Set your Gemini API key (replace with your key in `recommender.py`):**
+2. **Set your Cohere API key (replace with your key in `recommender.py`):**
 
 ```python
-Cohere_API_KEY = "your-api-key-here"
+COHERE_API_KEY = "your-api-key-here"
 ```
 
 3. **Scrape and generate embeddings:**
