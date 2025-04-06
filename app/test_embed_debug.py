@@ -4,7 +4,7 @@ import cohere
 import os
 
 # API Key
-api_key = "4tJO50mMzwVSWor7obvxGQi7XQXPOv8EK0ZGnb4K"
+api_key = "COHERE_API_KEY"
 
 try:
     co = cohere.Client(api_key)

@@ -8,7 +8,7 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-print("Loaded API Key:", os.getenv("4tJO50mMzwVSWor7obvxGQi7XQXPOv8EK0ZGnb4K"))
+print("Loaded API Key:", os.getenv("COHERE_API_KEY"))
 
 # Correct: Load from environment variable by name
 COHERE_API_KEY = os.getenv("COHERE_API_KEY")

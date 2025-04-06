@@ -47,7 +47,7 @@ pip install -r requirements.txt
 2. **Set your Gemini API key (replace with your key in `recommender.py`):**
 
 ```python
-GOOGLE_API_KEY = "your-api-key-here"
+Cohere_API_KEY = "your-api-key-here"
 ```
 
 3. **Scrape and generate embeddings:**
