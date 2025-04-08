@@ -1,42 +1,52 @@
-
 # 🧠 SHL Assessment Recommendation Engine
 
-This is a simple AI-powered recommendation system that helps you find the most relevant SHL assessments based on a natural language query. Built for the SHL AI Research Intern assignment.
+An AI-powered system to recommend the most relevant SHL assessments based on your job role or query — built as part of the SHL AI Research Intern assignment.
 
 ---
 
-## 🔧 Features
+## ✨ Features
 
-- Scrapes SHL assessment catalog and saves data
-- Generates semantic embeddings using **Gemini Pro**
-- Finds top relevant assessments using **cosine similarity**
-- Web interface powered by **Flask**
-- Clean, responsive UI with HTML/CSS
+- 🔍 Scrapes SHL's public catalog of assessments
+- 🧠 Uses **Cohere Embeddings** 
+- 📈 Computes **semantic similarity** with cosine distance
+- 🖥️ Clean, modern **dark-themed web UI** with HTML/CSS
+- 🔁 JSON API endpoint for integration with other apps
 
 ---
 
-## 🗂️ Project Structure
+Here's the updated **📁 Folder Structure** section of your `README.md` based on your latest screenshot:
+
+---
+
+```markdown
+## 🗂️ Folder Structure
 
 ```
 SHL-Assessment-Recommender/
 │
 ├── app/
-│   ├── scraper.py          # Scrapes SHL site
-│   ├── recommender.py      # Generates embeddings + recommendation logic
-│   ├── assessments.csv     # Scraped data (auto-generated)
-│   └── embeddings.pkl      # Gemini-based embeddings (auto-generated)
-│
-├── templates/
-│   └── index.html          # Web UI
-│
-├── main.py                 # Flask server
-├── requirements.txt        # Python dependencies
-└── README.md
+│   ├── templates/                 # HTML templates (index.html)
+│   ├── __pycache__/              # Python cache
+│   ├── test_api.py               # Endpoint testing
+│   ├── prepare_data.py           # Data prep script
+│   ├── test_embed_debug.py       # Debugging embedding output
+│   ├── data.pkl                  # Additional serialized data
+│   ├── recommender.py            # Core logic: embeddings & search
+│   ├── sample_shl_data.csv       # Sample input data
+│   ├── debug_pickle.py           # Debug script
+│   ├── embeddings.pkl            # Generated embeddings
+│   ├── assessments.csv           # Scraped assessment data
+│   └── scraper.py                # SHL scraper
+│   └── main.py                   # Flask Server
+        entry
+├── requirements.txt              # Dependencies
+├── runtime.txt                   # Python runtime version
+├── Procfile                      # For deployment on Render/Heroku
+├── .runtime                      # (optional runtime config)
+└── README.md                     # Project documentation
 ```
 
----
-
-## 🚀 How to Run
+## 🚀 Getting Started
 
 1. **Install dependencies:**
 
@@ -44,37 +54,58 @@ SHL-Assessment-Recommender/
 pip install -r requirements.txt
 ```
 
-2. **Set your Cohere API key (replace with your key in `recommender.py`):**
+2. **Add your Cohere API key to `recommender.py`:**
 
 ```python
-COHERE_API_KEY = "your-api-key-here"
+COHERE_API_KEY = "your-cohere-api-key"
 ```
 
-3. **Scrape and generate embeddings:**
+3. **Scrape data and generate embeddings:**
 
 ```bash
 python app/recommender.py
 ```
 
-4. **Run the Flask app:**
+4. **Run the Flask server:**
 
 ```bash
 python main.py
 ```
 
-5. **Go to browser:**
+5. **Access your app:**
 
 ```
-http://127.0.0.1:5000
+http://127.0.0.1:5000/web
 ```
 
 ---
 
-## 📌 Example Query
+## 🌐 Live Demo & Endpoints
 
-> I need an assessment for evaluating leadership and numerical skills.
+- 🔗 **Web UI:** https://shl-recommender-pefm.onrender.com/web  
+- 📡 **API Endpoint:**  
+  `POST https://shl-recommender-pefm.onrender.com/recommend`  
+  Send JSON body like:
+  
+```json
+{
+  "query": "problem solving"
+}
+```
 
-✅ Returns top matching SHL assessments with their scores and descriptions.
+- 💻 **GitHub Repo:**  
+  https://github.com/PriyanshuN19/shl_recommender
+
+---
+
+## 🧪 Example Query
+
+> `"Looking for someone skilled in system design and creative thinking"`
+
+✅ Returns:
+- System Design Assessment  
+- Creativity & Innovation Assessment  
+- Visual Reasoning Test  
 
 ---
 
@@ -82,13 +113,17 @@ http://127.0.0.1:5000
 
 - Python 3.11.9
 - Flask
-- BeautifulSoup
-- Pandas / NumPy / Scikit-learn
-- Gemini Pro (Google Generative AI)
+- Cohere Embeddings (NLP)
+- BeautifulSoup4
+- Pandas, NumPy, Scikit-learn
+- HTML5 + CSS3 (Dark Theme)
 
 ---
 
-## 📬 Contact
+## 🙋‍♂️ Author
 
-Built with ❤️ by Priyanshu Nailwal for SHL Internship Assignment.
+Made with ❤️ by **Priyanshu Nailwal**  
+For SHL AI Research Intern Assignment – 2025
+
+---
 
