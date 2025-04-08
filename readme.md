@@ -14,38 +14,6 @@ An AI-powered system to recommend the most relevant SHL assessments based on you
 
 ---
 
-Here's the updated **📁 Folder Structure** section of your `README.md` based on your latest screenshot:
-
----
-
-```markdown
-## 🗂️ Folder Structure
-
-```
-SHL-Assessment-Recommender/
-│
-├── app/
-│   ├── templates/                 # HTML templates (index.html)
-│   ├── __pycache__/              # Python cache
-│   ├── test_api.py               # Endpoint testing
-│   ├── prepare_data.py           # Data prep script
-│   ├── test_embed_debug.py       # Debugging embedding output
-│   ├── data.pkl                  # Additional serialized data
-│   ├── recommender.py            # Core logic: embeddings & search
-│   ├── sample_shl_data.csv       # Sample input data
-│   ├── debug_pickle.py           # Debug script
-│   ├── embeddings.pkl            # Generated embeddings
-│   ├── assessments.csv           # Scraped assessment data
-│   └── scraper.py                # SHL scraper
-│   └── main.py                   # Flask Server
-        entry
-├── requirements.txt              # Dependencies
-├── runtime.txt                   # Python runtime version
-├── Procfile                      # For deployment on Render/Heroku
-├── .runtime                      # (optional runtime config)
-└── README.md                     # Project documentation
-```
-
 ## 🚀 Getting Started
 
 1. **Install dependencies:**
