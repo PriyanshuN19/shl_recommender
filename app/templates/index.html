@@ -5,61 +5,157 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SHL Assessment Recommender</title>
   <style>
+    :root {
+      --bg: #121212;
+      --card: #1e1e1e;
+      --text: #e0e0e0;
+      --accent: #00bcd4;
+      --error: #ff6b6b;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      margin: 0;
       padding: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+    }
+
+    .container {
+      background-color: var(--card);
+      padding: 2rem;
+      border-radius: 16px;
+      width: 100%;
       max-width: 600px;
-      margin: auto;
+      box-shadow: 0 0 20px rgba(0, 188, 212, 0.1);
+      transition: 0.3s ease;
     }
+
     h1 {
-      color: #333;
+      text-align: center;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
     }
+
+    label {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
     input[type="text"] {
       width: 100%;
-      padding: 0.5rem;
-      margin-top: 1rem;
+      padding: 0.75rem;
+      border-radius: 12px;
+      border: none;
+      margin-top: 0.5rem;
       margin-bottom: 1rem;
+      background-color: #2a2a2a;
+      color: var(--text);
+      font-size: 1rem;
     }
+
+    input[type="text"]:focus {
+      outline: 2px solid var(--accent);
+    }
+
     button {
-      padding: 0.5rem 1rem;
+      padding: 0.75rem 1.5rem;
+      background-color: var(--accent);
+      color: #fff;
+      font-size: 1rem;
+      border: none;
+      border-radius: 12px;
       cursor: pointer;
+      transition: background 0.3s ease;
+      display: block;
+      width: 100%;
     }
+
+    button:hover {
+      background-color: #00acc1;
+    }
+
     .result {
       margin-top: 2rem;
+      padding: 1rem;
+      background-color: #2a2a2a;
+      border-radius: 12px;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+      margin-top: 1rem;
+    }
+
+    li {
+      margin-bottom: 0.75rem;
+      padding: 0.75rem;
+      background-color: #333;
+      border-radius: 10px;
+      transition: background 0.2s ease;
+    }
+
+    li:hover {
+      background-color: #3c3c3c;
+    }
+
+    .error {
+      color: var(--error);
     }
   </style>
 </head>
 <body>
-  <h1>🔍 SHL Assessment Recommender</h1>
-  <form id="recommendForm">
-    <label for="query">Enter Job Role:</label><br />
-    <input type="text" id="query" name="query" required />
-    <button type="submit">Get Recommendations</button>
-  </form>
+  <div class="container">
+    <h1>🔍 SHL Assessment Recommender</h1>
+    <form id="recommendForm">
+      <label for="query">Enter Job Role:</label>
+      <input type="text" id="query" name="query" placeholder="e.g. problem solving" required />
+      <button type="submit">Get Recommendations</button>
+    </form>
 
-  <div class="result" id="result"></div>
+    <div class="result" id="result"></div>
+  </div>
 
   <script>
     document.getElementById("recommendForm").addEventListener("submit", async function (e) {
       e.preventDefault();
       const query = document.getElementById("query").value;
-
-      const response = await fetch("/recommend", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ query })
-      });
-
-      const data = await response.json();
       const resultDiv = document.getElementById("result");
+      resultDiv.innerHTML = "⏳ Fetching recommendations...";
 
-      if (data.recommendations) {
-        const list = data.recommendations.map(r => `<li>${r.Recommended_Assessments}</li>`).join("");
-        resultDiv.innerHTML = `<h3>Recommended Assessments for "${data.query}":</h3><ul>${list}</ul>`;
-      } else {
-        resultDiv.innerHTML = `<p style="color:red;">${data.error || "Something went wrong."}</p>`;
+      try {
+        const response = await fetch("/recommend", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ query })
+        });
+
+        const data = await response.json();
+
+        if (data.recommendations) {
+          const list = data.recommendations.map(r =>
+            `<li><strong>${r.Role}</strong>: ${r.Recommended_Assessments}</li>`
+          ).join("");
+          resultDiv.innerHTML = `<h3>Recommended Assessments for "<em>${data.query}</em>":</h3><ul>${list}</ul>`;
+        } else {
+          resultDiv.innerHTML = `<p class="error">${data.error || "Something went wrong."}</p>`;
+        }
+
+      } catch (err) {
+        resultDiv.innerHTML = `<p class="error">Error: ${err.message}</p>`;
       }
     });
   </script>
