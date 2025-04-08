@@ -74,8 +74,13 @@ def recommend():
         return jsonify({"error": str(e)}), 500
 import requests
 
-response = requests.post("https://shl-recommender-pefm.onrender.com/recommend", json={"query": "problem solving"})
+response = requests.post(
+    "https://shl-recommender-pefm.onrender.com/recommend",
+    json={"query": "problem solving"}
+)
+
 print(response.json())
+
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
